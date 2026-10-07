@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { LuAlertTriangle, LuX } from "react-icons/lu";
+import { LuTriangleAlert, LuX } from "react-icons/lu";
 import styles from "./styles.module.css";
 
 const ConfirmDialog = ({ itemName, onCancel, onConfirm }) => {
@@ -47,7 +47,7 @@ const ConfirmDialog = ({ itemName, onCancel, onConfirm }) => {
                 <button className={styles.dialogClose} type="button" aria-label="Close dialog" onClick={onCancel}>
                     <LuX aria-hidden="true" />
                 </button>
-                <span className={styles.alertIcon}><LuAlertTriangle aria-hidden="true" /></span>
+                <span className={styles.alertIcon}><LuTriangleAlert aria-hidden="true" /></span>
                 <h2 id="remove-title">Remove this section?</h2>
                 <p id="remove-description">“{itemName}” will be removed from this wireframe. You can add a new section from the library at any time.</p>
                 <div className={styles.dialogActions}>
