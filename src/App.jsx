@@ -94,7 +94,7 @@ const App = () => {
         downloadLink.href = downloadUrl;
         downloadLink.download = "sketchframe-wireframe.json";
         downloadLink.click();
-        URL.revokeObjectURL(downloadUrl);
+        window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
         setExportMessage("Wireframe JSON downloaded.");
         window.setTimeout(() => setExportMessage(""), 2500);
     };
