@@ -1,0 +1,92 @@
+.siteFooter {
+    border-top: 1px solid #303640;
+    background: var(--dark);
+    color: #f3f5f0;
+
+    .footerInner {
+        display: flex;
+        width: min(1500px, calc(100% - 40px));
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+        margin: 0 auto;
+        padding: 27px 0;
+    }
+
+    .ownerDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        p {
+            color: #a6abb1;
+            font-size: 11px;
+        }
+
+        p a {
+            color: #f3f5f0;
+            font-weight: 700;
+        }
+    }
+
+    .logoLink {
+        display: inline-flex;
+        width: fit-content;
+
+        img {
+            width: auto;
+            max-width: 152px;
+            max-height: 40px;
+            object-fit: contain;
+        }
+    }
+
+    .footerLinks {
+        display: grid;
+        max-width: 760px;
+        gap: 16px;
+    }
+
+    .linkGroup {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 9px 15px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border-bottom: 1px solid transparent;
+            color: #c1c5ca;
+            font-size: 11px;
+            transition: border-color 140ms ease;
+
+            svg {
+                width: 13px;
+                height: 13px;
+            }
+
+            &:hover {
+                border-color: var(--lime);
+            }
+        }
+    }
+
+    @media (max-width: 760px) {
+        .footerInner {
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .linkGroup {
+            justify-content: flex-start;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .footerInner {
+            width: calc(100% - 28px);
+        }
+    }
+}
