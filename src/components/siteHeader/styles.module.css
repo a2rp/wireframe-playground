@@ -1,0 +1,118 @@
+.siteHeader {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid #303640;
+    background: var(--dark);
+    color: #f6f7f3;
+
+    .headerContent {
+        display: grid;
+        width: min(1600px, calc(100% - 40px));
+        height: 62px;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .brand {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 9px;
+        font-size: 14px;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+    }
+
+    .brandMark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--lime);
+        color: var(--dark);
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .documentInfo {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #d2d5d9;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .projectDot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--coral);
+    }
+
+    .saveStatus {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border-left: 1px solid #454b55;
+        padding-left: 9px;
+        color: #9ca49a;
+        font-size: 10px;
+
+        svg {
+            width: 13px;
+            height: 13px;
+            color: var(--lime);
+        }
+    }
+
+    .repositoryLink {
+        display: inline-flex;
+        min-height: 34px;
+        align-items: center;
+        justify-self: end;
+        gap: 7px;
+        border: 1px solid #4c535e;
+        border-radius: 6px;
+        padding: 0 10px;
+        color: #f6f7f3;
+        font-size: 11px;
+        font-weight: 650;
+        transition: border-color 140ms ease, box-shadow 140ms ease;
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        &:hover {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 2px rgb(201 240 108 / 12%);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .headerContent {
+            width: calc(100% - 24px);
+            height: 58px;
+            grid-template-columns: 1fr auto;
+        }
+
+        .documentInfo {
+            display: none;
+        }
+
+        .repositoryLink {
+            min-height: 33px;
+            padding-inline: 8px;
+        }
+    }
+}
