@@ -1,0 +1,207 @@
+.sectionLibrary {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    padding: 22px 16px 18px;
+
+    .panelHeader {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 18px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 750;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+    }
+
+    .count {
+        display: grid;
+        width: 28px;
+        height: 24px;
+        place-items: center;
+        border-radius: 5px;
+        background: #eff0ed;
+        color: #616670;
+        font-size: 10px;
+        font-weight: 750;
+    }
+
+    .searchField {
+        display: flex;
+        min-height: 38px;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: #fafbf9;
+        padding: 0 10px;
+        color: var(--muted);
+
+        svg {
+            width: 15px;
+            height: 15px;
+            flex: 0 0 auto;
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            border: 0;
+            outline: none;
+            background: transparent;
+            color: var(--ink);
+            font-size: 12px;
+
+            &::placeholder {
+                color: #959aa1;
+            }
+        }
+
+        &:focus-within {
+            border-color: #727b68;
+            box-shadow: 0 0 0 2px rgb(201 240 108 / 24%);
+        }
+    }
+
+    .blockList {
+        display: grid;
+        gap: 6px;
+        margin-top: 14px;
+    }
+
+    .blockOption {
+        display: grid;
+        min-width: 0;
+        grid-template-columns: 34px minmax(0, 1fr) 16px;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        background: transparent;
+        padding: 8px 7px;
+        text-align: left;
+        transition: border-color 140ms ease, box-shadow 140ms ease;
+
+        &:hover {
+            border-color: #d8dccf;
+            box-shadow: 0 2px 8px rgb(23 27 36 / 5%);
+        }
+
+        &:focus-visible {
+            outline: 2px solid #7d9851;
+            outline-offset: 1px;
+        }
+    }
+
+    .blockIcon {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 1px solid #e0e2dd;
+        border-radius: 7px;
+        background: #f5f6f3;
+        color: #555d68;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .blockCopy {
+        display: grid;
+        min-width: 0;
+        gap: 2px;
+    }
+
+    .blockName {
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .blockDescription {
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .addIcon {
+        width: 15px;
+        height: 15px;
+        color: #8b9095;
+    }
+
+    .emptyMessage {
+        padding: 14px 5px;
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .libraryNote {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        margin-top: auto;
+        border-top: 1px solid #e8e9e5;
+        padding-top: 16px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.5;
+
+        p {
+            max-width: 180px;
+        }
+    }
+
+    .noteIcon {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 6px;
+        background: #f2f3ef;
+        color: #68705e;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    @media (max-width: 1050px) {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 16px;
+
+        .blockList {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .libraryNote {
+            display: none;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .blockList {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+}
