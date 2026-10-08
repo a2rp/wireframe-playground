@@ -44,15 +44,38 @@ const ConfirmDialog = ({ itemName, onCancel, onConfirm }) => {
                 aria-labelledby="remove-title"
                 aria-describedby="remove-description"
             >
-                <button className={styles.dialogClose} type="button" aria-label="Close dialog" onClick={onCancel}>
+                <button
+                    className={styles.dialogClose}
+                    type="button"
+                    aria-label="Close dialog"
+                    onClick={onCancel}
+                >
                     <LuX aria-hidden="true" />
                 </button>
-                <span className={styles.alertIcon}><LuTriangleAlert aria-hidden="true" /></span>
+                <span className={styles.alertIcon}>
+                    <LuTriangleAlert aria-hidden="true" />
+                </span>
                 <h2 id="remove-title">Remove this section?</h2>
-                <p id="remove-description">“{itemName}” will be removed from this wireframe. You can add a new section from the library at any time.</p>
+                <p id="remove-description">
+                    “{itemName}” will be removed from this wireframe. You can
+                    add a new section from the library at any time.
+                </p>
                 <div className={styles.dialogActions}>
-                    <button ref={cancelRef} className={styles.cancelButton} type="button" onClick={onCancel}>Keep section</button>
-                    <button className={styles.confirmButton} type="button" onClick={onConfirm}>Remove section</button>
+                    <button
+                        ref={cancelRef}
+                        className={styles.cancelButton}
+                        type="button"
+                        onClick={onCancel}
+                    >
+                        Keep section
+                    </button>
+                    <button
+                        className={styles.confirmButton}
+                        type="button"
+                        onClick={onConfirm}
+                    >
+                        Remove section
+                    </button>
                 </div>
             </section>
         </div>

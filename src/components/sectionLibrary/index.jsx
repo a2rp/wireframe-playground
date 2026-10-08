@@ -1,5 +1,17 @@
 import { useState } from "react";
-import { LuAlignLeft, LuGrid2X2, LuImage, LuMail, LuMenu, LuMessageSquare, LuPanelBottom, LuPlus, LuSearch, LuSparkles, LuType } from "react-icons/lu";
+import {
+    LuAlignLeft,
+    LuGrid2X2,
+    LuImage,
+    LuMail,
+    LuMenu,
+    LuMessageSquare,
+    LuPanelBottom,
+    LuPlus,
+    LuSearch,
+    LuSparkles,
+    LuType,
+} from "react-icons/lu";
 import styles from "./styles.module.css";
 
 const iconByType = {
@@ -15,16 +27,25 @@ const iconByType = {
 
 const SectionLibrary = ({ blocks, onAdd }) => {
     const [query, setQuery] = useState("");
-    const filteredBlocks = blocks.filter((block) => `${block.label} ${block.description}`.toLowerCase().includes(query.trim().toLowerCase()));
+    const filteredBlocks = blocks.filter((block) =>
+        `${block.label} ${block.description}`
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()),
+    );
 
     return (
-        <aside className={styles.sectionLibrary} aria-labelledby="library-title">
+        <aside
+            className={styles.sectionLibrary}
+            aria-labelledby="library-title"
+        >
             <div className={styles.panelHeader}>
                 <div>
                     <h2 id="library-title">Add a section</h2>
                     <p>Start with a simple building block.</p>
                 </div>
-                <span className={styles.count}>{filteredBlocks.length.toString().padStart(2, "0")}</span>
+                <span className={styles.count}>
+                    {filteredBlocks.length.toString().padStart(2, "0")}
+                </span>
             </div>
             <label className={styles.searchField} htmlFor="section-search">
                 <LuSearch aria-hidden="true" />
@@ -40,21 +61,44 @@ const SectionLibrary = ({ blocks, onAdd }) => {
                 {filteredBlocks.map((block) => {
                     const Icon = iconByType[block.type] ?? LuType;
                     return (
-                        <button className={styles.blockOption} key={block.type} type="button" onClick={() => onAdd(block.type)}>
-                            <span className={styles.blockIcon}><Icon aria-hidden="true" /></span>
-                            <span className={styles.blockCopy}>
-                                <span className={styles.blockName}>{block.label}</span>
-                                <span className={styles.blockDescription}>{block.description}</span>
+                        <button
+                            className={styles.blockOption}
+                            key={block.type}
+                            type="button"
+                            onClick={() => onAdd(block.type)}
+                        >
+                            <span className={styles.blockIcon}>
+                                <Icon aria-hidden="true" />
                             </span>
-                            <LuPlus className={styles.addIcon} aria-hidden="true" />
+                            <span className={styles.blockCopy}>
+                                <span className={styles.blockName}>
+                                    {block.label}
+                                </span>
+                                <span className={styles.blockDescription}>
+                                    {block.description}
+                                </span>
+                            </span>
+                            <LuPlus
+                                className={styles.addIcon}
+                                aria-hidden="true"
+                            />
                         </button>
                     );
                 })}
-                {filteredBlocks.length === 0 && <p className={styles.emptyMessage}>No sections match “{query}”.</p>}
+                {filteredBlocks.length === 0 && (
+                    <p className={styles.emptyMessage}>
+                        No sections match “{query}”.
+                    </p>
+                )}
             </div>
             <div className={styles.libraryNote}>
-                <span className={styles.noteIcon}><LuImage aria-hidden="true" /></span>
-                <p>Image blocks are placeholders. Add your own visuals after exporting the plan.</p>
+                <span className={styles.noteIcon}>
+                    <LuImage aria-hidden="true" />
+                </span>
+                <p>
+                    Image blocks are placeholders. Add your own visuals after
+                    exporting the plan.
+                </p>
             </div>
         </aside>
     );

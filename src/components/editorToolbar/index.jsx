@@ -7,13 +7,27 @@ const viewports = [
     { id: "mobile", label: "Mobile", width: 390, Icon: LuSmartphone },
 ];
 
-const EditorToolbar = ({ viewport, onViewportChange, sectionCount, onExport }) => (
+const EditorToolbar = ({
+    viewport,
+    onViewportChange,
+    sectionCount,
+    onExport,
+}) => (
     <div className={styles.editorToolbar} aria-label="Canvas display settings">
         <div className={styles.documentLabel}>
-            <span className={styles.pageIcon}><LuMonitor aria-hidden="true" /></span>
-            <span><strong>Landing page</strong><small>{sectionCount} sections</small></span>
+            <span className={styles.pageIcon}>
+                <LuMonitor aria-hidden="true" />
+            </span>
+            <span>
+                <strong>Landing page</strong>
+                <small>{sectionCount} sections</small>
+            </span>
         </div>
-        <div className={styles.viewportPicker} role="group" aria-label="Preview width">
+        <div
+            className={styles.viewportPicker}
+            role="group"
+            aria-label="Preview width"
+        >
             {viewports.map(({ id, label, width, Icon }) => (
                 <button
                     className={viewport === id ? styles.viewportActive : ""}
@@ -28,7 +42,11 @@ const EditorToolbar = ({ viewport, onViewportChange, sectionCount, onExport }) =
                 </button>
             ))}
         </div>
-        <button className={styles.exportButton} type="button" onClick={onExport}>
+        <button
+            className={styles.exportButton}
+            type="button"
+            onClick={onExport}
+        >
             <LuDownload aria-hidden="true" />
             <span>Export JSON</span>
         </button>
