@@ -92,7 +92,9 @@
         background: transparent;
         padding: 8px 7px;
         text-align: left;
-        transition: border-color 140ms ease, box-shadow 140ms ease;
+        transition:
+            border-color 140ms ease,
+            box-shadow 140ms ease;
 
         &:hover {
             border-color: #d8dccf;

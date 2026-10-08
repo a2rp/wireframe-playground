@@ -45,7 +45,9 @@
         border-radius: 7px;
         background: transparent;
         color: #777d86;
-        transition: border-color 140ms ease, box-shadow 140ms ease;
+        transition:
+            border-color 140ms ease,
+            box-shadow 140ms ease;
 
         svg {
             width: 17px;
@@ -90,7 +92,9 @@
         color: #434852;
         font-size: 12px;
         font-weight: 700;
-        transition: border-color 140ms ease, box-shadow 140ms ease;
+        transition:
+            border-color 140ms ease,
+            box-shadow 140ms ease;
 
         &:hover {
             border-color: #929a87;

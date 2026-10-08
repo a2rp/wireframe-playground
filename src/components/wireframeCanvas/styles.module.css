@@ -70,7 +70,9 @@
         border-bottom-color: #e1e3df;
         cursor: pointer;
         outline: none;
-        transition: border-color 140ms ease, box-shadow 140ms ease;
+        transition:
+            border-color 140ms ease,
+            box-shadow 140ms ease;
 
         &:hover {
             border-color: #afb7a3;
@@ -227,7 +229,13 @@
         justify-items: center;
         gap: 9px;
         border: 1px dashed #c4c8c0;
-        background: repeating-linear-gradient(135deg, #f2f3f0, #f2f3f0 9px, #ebede9 9px, #ebede9 18px);
+        background: repeating-linear-gradient(
+            135deg,
+            #f2f3f0,
+            #f2f3f0 9px,
+            #ebede9 9px,
+            #ebede9 18px
+        );
         color: #858c7d;
         font-size: 8px;
         font-weight: 700;
