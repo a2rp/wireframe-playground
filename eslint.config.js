@@ -22,6 +22,13 @@ export default defineConfig([
             "react-refresh": reactRefresh,
         },
         rules: {
+            "no-unused-vars": [
+                "error",
+                {
+                    varsIgnorePattern: "^[A-Z_]",
+                    argsIgnorePattern: "^[A-Z_]",
+                },
+            ],
             "react-refresh/only-export-components": [
                 "warn",
                 {

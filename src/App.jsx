@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import BackToTop from "./components/backToTop/index.jsx";
 import ConfirmDialog from "./components/confirmDialog/index.jsx";
 import EditorToolbar from "./components/editorToolbar/index.jsx";
@@ -15,24 +15,58 @@ import {
 } from "./data/wireframeBlocks.js";
 
 const storageKey = "sketchframe-wireframe-v1";
+const blockTypes = new Set(blockLibrary.map((block) => block.type));
+
+const normalizeText = (value, fallback, maxLength) =>
+    typeof value === "string" ? value.slice(0, maxLength) : fallback;
 
 const loadBlocks = () => {
     try {
         const saved = JSON.parse(window.localStorage.getItem(storageKey));
-        if (
-            Array.isArray(saved?.blocks) &&
-            saved.blocks.every(
-                (block) =>
-                    Number.isInteger(block.id) &&
-                    typeof block.type === "string",
-            )
-        ) {
-            return saved.blocks;
+
+        if (!Array.isArray(saved?.blocks)) {
+            return starterBlocks;
         }
+
+        const usedIds = new Set();
+
+        return saved.blocks.flatMap((block) => {
+            if (
+                !block ||
+                typeof block !== "object" ||
+                !blockTypes.has(block.type)
+            ) {
+                return [];
+            }
+
+            const hasUsableId =
+                Number.isSafeInteger(block.id) &&
+                block.id > 0 &&
+                block.id < Number.MAX_SAFE_INTEGER &&
+                !usedIds.has(block.id);
+            let id = hasUsableId ? block.id : 1;
+
+            while (usedIds.has(id)) {
+                id += 1;
+            }
+
+            usedIds.add(id);
+
+            const defaults = createBlock(block.type, id);
+
+            return [
+                {
+                    id,
+                    type: block.type,
+                    title: normalizeText(block.title, defaults.title, 80),
+                    text: normalizeText(block.text, defaults.text, 200),
+                    action: normalizeText(block.action, defaults.action, 32),
+                },
+            ];
+        });
     } catch {
         return starterBlocks;
     }
-    return starterBlocks;
 };
 
 const App = () => {
@@ -46,6 +80,7 @@ const App = () => {
     const [viewport, setViewport] = useState("desktop");
     const [removeCandidate, setRemoveCandidate] = useState(null);
     const [exportMessage, setExportMessage] = useState("");
+    const [storageError, setStorageError] = useState(false);
     const selectedBlock =
         blocks.find((block) => block.id === selectedId) ?? null;
     const selectedPosition = blocks.findIndex(
@@ -54,26 +89,36 @@ const App = () => {
     const blockLabel =
         blockLibrary.find((block) => block.type === selectedBlock?.type)
             ?.label ?? "Section";
-    const nextId =
-        blocks.reduce((largest, block) => Math.max(largest, block.id), 0) + 1;
+    const usedIds = new Set(blocks.map((block) => block.id));
+    let nextId = 1;
 
-    useEffect(() => {
+    while (usedIds.has(nextId)) {
+        nextId += 1;
+    }
+
+    const persistBlocks = (nextBlocks) => {
+        setBlocks(nextBlocks);
+
         try {
-            window.localStorage.setItem(storageKey, JSON.stringify({ blocks }));
+            window.localStorage.setItem(
+                storageKey,
+                JSON.stringify({ blocks: nextBlocks }),
+            );
+            setStorageError(false);
         } catch {
-            return;
+            setStorageError(true);
         }
-    }, [blocks]);
+    };
 
     const handleAdd = (type) => {
         const newBlock = createBlock(type, nextId);
-        setBlocks((current) => [...current, newBlock]);
+        persistBlocks([...blocks, newBlock]);
         setSelectedId(newBlock.id);
     };
 
     const handleChange = (key, value) => {
-        setBlocks((current) =>
-            current.map((block) =>
+        persistBlocks(
+            blocks.map((block) =>
                 block.id === selectedId ? { ...block, [key]: value } : block,
             ),
         );
@@ -88,7 +133,7 @@ const App = () => {
             nextBlocks[newPosition],
             nextBlocks[selectedPosition],
         ];
-        setBlocks(nextBlocks);
+        persistBlocks(nextBlocks);
     };
 
     const handleDuplicate = () => {
@@ -100,7 +145,7 @@ const App = () => {
         };
         const nextBlocks = [...blocks];
         nextBlocks.splice(selectedPosition + 1, 0, duplicate);
-        setBlocks(nextBlocks);
+        persistBlocks(nextBlocks);
         setSelectedId(duplicate.id);
     };
 
@@ -113,7 +158,7 @@ const App = () => {
         const nextBlocks = blocks.filter(
             (block) => block.id !== removeCandidate.id,
         );
-        setBlocks(nextBlocks);
+        persistBlocks(nextBlocks);
         setSelectedId(
             nextBlocks[Math.min(removeIndex, nextBlocks.length - 1)]?.id ??
                 null,
@@ -151,6 +196,12 @@ const App = () => {
                     sectionCount={blocks.length}
                     onExport={exportWireframe}
                 />
+                {storageError && (
+                    <p className={styles.storageWarning} role="status">
+                        Your latest edits could not be saved in this browser.
+                        Export the wireframe before leaving this page.
+                    </p>
+                )}
                 <div className={styles.editorLayout}>
                     <SectionLibrary blocks={blockLibrary} onAdd={handleAdd} />
                     <div className={styles.canvasColumn}>
